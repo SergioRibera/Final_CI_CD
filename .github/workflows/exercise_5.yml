@@ -1,0 +1,17 @@
+name: Workflow Self Hosted
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    name: Show Data
+
+    steps:
+      - run: hwinfo
+      - run: lspci
+      - name: Show IP
+        run: ip addr

@@ -1,5 +1,8 @@
 name: Exercise 3
 
+on:
+  workflow_call:
+
 env:
   CARGO_TERM_COLOR: always
 
