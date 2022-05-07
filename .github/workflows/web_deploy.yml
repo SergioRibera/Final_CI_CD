@@ -1,5 +1,10 @@
 name: Deploy simple web to Heroku
 
+on:
+  push:
+    tags:
+      - v*.*.*
+
 jobs:
   webDeploy:
     name: Web Deploy
