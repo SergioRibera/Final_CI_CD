@@ -1,9 +1,7 @@
 name: Deploy Zip
 
 on:
-  push:
-    tags:
-      - v*.*.*
+  workflow_run:
 
 env:
   out: out_file
