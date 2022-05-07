@@ -1,7 +1,7 @@
 name: Deploy Zip
 
 on:
-  workflow_run:
+  pull_request:
 
 env:
   out: out_file
