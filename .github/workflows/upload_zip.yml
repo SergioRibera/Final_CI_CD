@@ -1,0 +1,38 @@
+name: Deploy Zip
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+env:
+  out: out_file
+
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare package
+        run: |
+          mkdir out
+          cp Dockerfile go.mod README.md main.go LICENSE -t out/
+      - name: Package as a zip
+        uses: vimtor/action-zip@v1
+        with:
+          files: out
+          dest: ${{ env.out }}.zip
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.out }}.zip
+          asset_name: ${{ env.out }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true
